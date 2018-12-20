@@ -10,4 +10,6 @@ def key_event():
             if event.type == pygame.QUIT:
                 sys.exit()
             elif event.type == pygame.KEYDOWN:
-                print(pygame.event(key_event())
+                print(event.key)
+        pygame.display.flip()
+key_event()
