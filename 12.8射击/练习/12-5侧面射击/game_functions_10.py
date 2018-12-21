@@ -6,23 +6,21 @@ from bullet_1 import Bullet
 #编组bullets传递给了check_keydown_events()
 def check_keydown_events(event,ai_settings,screen,ship,bullets):
     """响应按键"""
-    # 读取属性event.key，检查按下是否右箭头(pygame.K_RIGHT)
-    if event.key == pygame.K_RIGHT:
-        # 按下右箭头不直接移动，而是将moving_right设置为True
-        ship.moving_right = True
-    elif event.key == pygame.K_LEFT:
-        ship.moving_left = True
+    fire = False
+    if event.key == pygame.K_UP:
+        ship.moving_up = True
+    elif event.key == pygame.K_DOWN:
+        ship.moving_down = True
     elif event.key == pygame.K_SPACE:
         fire_bullet(ai_settings,screen,ship,bullets)
 
 def check_keyup_events(event,ship):
     """响应松开"""
-    if event.key == pygame.K_RIGHT:
+    if event.key == pygame.K_UP:
         # 将moving_right设置为False
-        ship.moving_right = False
-    elif event.key == pygame.K_LEFT:
-        ship.moving_left = False
-
+        ship.moving_up = False
+    elif event.key == pygame.K_DOWN:
+        ship.moving_down = False
 #添加形参bullets
 def check_events(ai_settings,screen,ship,bullets):
     """响应按键和鼠标事件"""
@@ -58,8 +56,9 @@ def update_bullets(bullets):
     bullets.update()
     #删除已消失的子弹
     for bullet in bullets.copy():
+        #print(bullet.rect)
         #检查每颗子弹，看看它是否已从屏幕消失。
-        if bullet.rect.bottom <= 0:
+        if bullet.rect.centerx > 1200:
             #从bullets中删除
             bullets.remove(bullet)
 

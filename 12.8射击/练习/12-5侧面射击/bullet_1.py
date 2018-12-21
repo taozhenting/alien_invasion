@@ -15,20 +15,22 @@ class Bullet(Sprite):
         #子弹矩形x坐标（飞船当前位置）
         self.rect.centerx = ship.rect.centerx
         #子弹矩形y坐标,rect的top属性，让子弹看起来像是从飞船中射出。
-        self.rect.top = ship.rect.top
-        #存储用小数表示的子弹位置
-        self.y = float(self.rect.y)
+        self.rect.centery = ship.rect.centery
+        #存储用小数表示的子弹位
+        self.r = float(self.rect.right)
         #子弹颜色设置
         self.color = ai_settings.bullet_color
         #子弹速度设置
         self.speed_factor = ai_settings.bullet_speed_factor
+        #射击标志
+        self.fire = False
 
     def update(self):
         """向上移动子弹"""
         #更新表示子弹位置的小数值
-        self.y -= self.speed_factor
+        self.r += self.speed_factor
         #更新表示子弹的rect的位置
-        self.rect.y = self.y
+        self.rect.right = self.r
 
     def draw_bullet(self):
         """在屏幕上绘制子弹"""

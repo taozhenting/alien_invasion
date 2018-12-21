@@ -29,8 +29,8 @@ class Ship():
         #移动标志
         self.moving_up = False
         self.moving_down = False
-        self.moving_right = False
-        self.moving_left = False
+        #self.moving_right = False
+        #self.moving_left = False
 
     def update(self):
         """根据移动标志调整飞船的位置"""
