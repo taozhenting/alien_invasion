@@ -2,11 +2,12 @@
 import pygame
 from pygame.sprite import Group
 
-from settings_8 import Settings
-from game_stats_3 import GameStats
+from settings_11 import Settings
+from game_stats_5 import GameStats
+from scoreboard_3 import Scoreboard
 from button_1 import Button
 from ship_6 import Ship
-import game_functions_28 as gf
+import game_functions_36 as gf
 
 def run_game():
     #初始化游戏并创建一个屏幕对象
@@ -31,6 +32,9 @@ def run_game():
     aliens = Group()
     #创建外星人群
     gf.create_fleet(ai_settings,screen,ship,aliens)
+    # 创建存储游戏统计信息的实例，并创建记分牌
+    stats = GameStats(ai_settings)
+    sb = Scoreboard(ai_settings, screen,stats)
     #开始游戏的循环
     while True:
         #主循环检查玩家的输入
@@ -39,8 +43,8 @@ def run_game():
         if stats.game_active:
             ship.update()
             #所有未消失的子弹位置
-            gf.update_bullets(ai_settings,screen,ship,aliens,bullets)
+            gf.update_bullets(ai_settings,screen,stats,sb,ship,aliens,bullets)
             gf.update_aliens(ai_settings,stats,screen,ship,aliens,bullets)
         #使用更新后的位置来绘制新屏幕
-        gf.update_screen(ai_settings,screen,stats,ship,aliens,bullets,play_button)
+        gf.update_screen(ai_settings,screen,stats,sb,ship,aliens,bullets,play_button)
 run_game()
